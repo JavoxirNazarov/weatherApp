@@ -1,19 +1,14 @@
-import {
-  CardContent,
-  CardHeader,
-  IconButton,
-  TextField,
-} from "@material-ui/core";
+import { CardContent, CardHeader, IconButton } from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
-import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
+import clsx from "clsx";
 import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { PlaceType, StepType } from "../../../types";
 import { reorder } from "../../../utils/helpers";
+import StepsInput from "../StepsInput";
 import { useStepStyles } from "../style";
 import DraggableLIstItem from "./DraggableItem";
-import clsx from "clsx";
-import StepsInput from "../StepsInput";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 
 type SettingStepProps = {
   handleStepName: (text: StepType) => void;
@@ -84,30 +79,36 @@ export default function SettingStep({
         title="Settings"
       />
       <CardContent>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="droppable" type="PLACE">
-            {(dropProvided, dropSnapshot) => (
-              <div
-                ref={dropProvided.innerRef}
-                className={clsx(classes.list, {
-                  [classes.list_dropping]: dropSnapshot.isDraggingOver,
-                })}
-                {...dropProvided.droppableProps}
-              >
-                {places.map((place, i) => (
-                  <DraggableLIstItem
-                    key={place.id}
-                    place={place}
-                    index={i}
-                    deleteFromplaces={deleteFromplaces}
-                  />
-                ))}
+        {places.length ? (
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable" type="PLACE">
+              {(dropProvided, dropSnapshot) => (
+                <div
+                  ref={dropProvided.innerRef}
+                  className={clsx(classes.list, {
+                    [classes.list_dropping]: dropSnapshot.isDraggingOver,
+                  })}
+                  {...dropProvided.droppableProps}
+                >
+                  {places.map((place, i) => (
+                    <DraggableLIstItem
+                      key={place.id}
+                      place={place}
+                      index={i}
+                      deleteFromplaces={deleteFromplaces}
+                    />
+                  ))}
 
-                {dropProvided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+                  {dropProvided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        ) : (
+          <div className={classes.emptyIcon}>
+            <AssignmentIcon />
+          </div>
+        )}
 
         <StepsInput
           value={placeName}

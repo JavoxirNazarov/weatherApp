@@ -61,6 +61,11 @@ export const useStepStyles = makeStyles((theme: Theme) => ({
   listItem: {
     backgroundColor: "#ccc"
   },
-
-
+  emptyIcon: {
+    margin: "10px auto",
+    textAlign: "center",
+    '& > svg': {
+      fontSize: "30px",
+    }
+  }
 }))
