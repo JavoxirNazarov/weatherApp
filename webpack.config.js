@@ -15,9 +15,6 @@ const config = {
   output: {
     path: __dirname + "/public",
     filename: "weatherWidget.min.js",
-    library: "weatherWidget",
-    libraryTarget: "umd",
-    umdNamedDefine: true,
   },
   module: {
     rules: [

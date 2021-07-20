@@ -18,8 +18,6 @@ export const getWeatherByName = (cityName: string): Promise<WeatherType> => {
 }
 
 export const getWeatherByLocation = (position: GeolocationPosition): Promise<WeatherType> => {
-  console.log(position);
-
   const { latitude, longitude } = position.coords;
   const textContent = `lat=${latitude}&lon=${longitude}`;
   return getWeather(textContent)
